@@ -26,6 +26,56 @@
 #     print(f"Finished in {round(finish-start, 2)} seconds")
 
 
+# import time
+# import concurrent.futures
+
+# def sleep_for_a_sec(seconds):
+#     print(f"Sleeping for {seconds} seconds...")
+#     time.sleep(seconds)
+#     return f"Slept for {seconds} seconds"
+
+# if __name__ == "__main__":
+
+#     start = time.perf_counter()
+
+#     with concurrent.futures.ProcessPoolExecutor() as executor:
+
+#         result = [executor.submit(sleep_for_a_sec, 1) for _ in range(15)]
+
+#         for f in concurrent.futures.as_completed(result):
+#             print(f.result())
+
+#     finish = time.perf_counter()
+
+#     print(f"Finished in {round(finish-start, 2)} seconds")
+
+
+# import time
+# import concurrent.futures
+
+# def sleep_for_a_sec(seconds):
+#     print(f"Sleeping for {seconds} seconds...")
+#     time.sleep(seconds)
+#     return f"Slept for {seconds} seconds"
+
+# if __name__ == "__main__":
+
+#     start = time.perf_counter()
+
+#     with concurrent.futures.ProcessPoolExecutor() as executor:
+#         secs = [i for i in range(10, 1, -1)]
+#         result = [executor.submit(sleep_for_a_sec, sec) for sec in secs]
+
+#         for f in concurrent.futures.as_completed(result):
+#             print(f.result())
+
+#     finish = time.perf_counter()
+
+#     print(f"Finished in {round(finish-start, 2)} seconds")
+
+# we can use map to simplify the code further, run the above code with map instead of submit 
+# and as_completed
+
 import time
 import concurrent.futures
 
@@ -39,12 +89,11 @@ if __name__ == "__main__":
     start = time.perf_counter()
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
+        secs = [i for i in range(5, 0, -1)]
+        results = executor.map(sleep_for_a_sec, secs)
 
-        result = [executor.submit(sleep_for_a_sec, 1) for _ in range(15)]
-
-        for f in concurrent.futures.as_completed(result):
-            print(f.result())
+        for result in results:
+            print(result)
 
     finish = time.perf_counter()
-
     print(f"Finished in {round(finish-start, 2)} seconds")
