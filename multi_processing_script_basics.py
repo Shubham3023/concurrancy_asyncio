@@ -6,7 +6,7 @@
 # Multi processing works for CPi-bound tasks, which are tasks that require a lot of CPU time.
 # Multi threading works for IO-bound tasks, which are tasks that require a lot of input/output operations, such as reading and writing files, or making network requests.
 
-# In this example, we will use the Process class to create two processes that will run the do_something function in parallel.
+# Example 1: In this example, we will use the Process class to create two processes that will run the do_something function in parallel.
 # import time 
 # import multiprocessing
 
@@ -34,7 +34,7 @@
 #     print(f"Finished in {round(finish - start, 2)} seconds")
 
 
-# when we want to do it for multiple processses
+# Example 2:  when we want to do it for multiple processses
 
 import time
 import multiprocessing
@@ -60,3 +60,31 @@ if __name__ == '__main__':
     finish = time.perf_counter()
 
     print(f"Finished in {round(finish - start, 2)} seconds")
+
+# Example 3: 
+
+# import time
+# import multiprocessing
+
+# def sleep_for_a_while(seconds):
+#     print(f"sleep for {seconds} second..")
+#     time.sleep(seconds)
+#     print("Done Sleeping....")
+
+# if __name__ == '__main__':
+#     start = time.perf_counter()
+
+#     processes = []
+#     for _ in range(15):
+#         process = multiprocessing.Process(
+#             target=sleep_for_a_while,
+#             args=tuple([1.5])  
+#         )
+#         process.start()
+#         processes.append(process)
+    
+#     for process in processes:
+#         process.join()
+    
+#     finish = time.perf_counter()
+#     print(f"Finished in {round(finish - start, 2)} seconds")
