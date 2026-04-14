@@ -6,28 +6,57 @@
 # Multi processing works for CPi-bound tasks, which are tasks that require a lot of CPU time.
 # Multi threading works for IO-bound tasks, which are tasks that require a lot of input/output operations, such as reading and writing files, or making network requests.
 
-import time 
+# In this example, we will use the Process class to create two processes that will run the do_something function in parallel.
+# import time 
+# import multiprocessing
+
+# def do_something():
+#     print('Sleeping 1 second...')
+#     time.sleep(1)
+#     print('Done sleeping...')
+
+# if __name__ == '__main__':
+#     start = time.perf_counter()
+#     p1 = multiprocessing.Process(target=do_something)
+#     p2 = multiprocessing.Process(target=do_something)
+
+#     p1.start() # starts the process p1, which runs the do_something function in a separate process.
+#     p2.start()
+
+#     # waits for the process p1 to finish before moving on to the next line of code. 
+#     # This is important because we want to make sure that the process has finished before we try to access any of its 
+#     # resources or data.
+#     p1.join()
+#     p2.join()
+
+#     finish = time.perf_counter()
+
+#     print(f"Finished in {round(finish - start, 2)} seconds")
+
+
+# when we want to do it for multiple processses
+
+import time
 import multiprocessing
 
-def do_something():
-    print('Sleeping 1 second...')
+def sleep_for_a_while():
+    print("sleep for 1 second..")
     time.sleep(1)
-    print('Done sleeping...')
+    print("Done Sleeping....")
 
 if __name__ == '__main__':
     start = time.perf_counter()
-    p1 = multiprocessing.Process(target=do_something)
-    p2 = multiprocessing.Process(target=do_something)
 
-    p1.start() # starts the process p1, which runs the do_something function in a separate process.
-    p2.start()
+    processes = []
+    for _ in range(15):
+        process = multiprocessing.Process(target=sleep_for_a_while)
+        process.start()
 
-    # waits for the process p1 to finish before moving on to the next line of code. 
-    # This is important because we want to make sure that the process has finished before we try to access any of its 
-    # resources or data.
-    p1.join()
-    p2.join()
-
+        processes.append(process)
+    
+    for process in processes:
+        process.join()
+    
     finish = time.perf_counter()
 
     print(f"Finished in {round(finish - start, 2)} seconds")
